@@ -1,6 +1,11 @@
 import os
 import shutil
+from loguru import logger
 import time
+
+# logger configuration
+log_file = "file_organizer.log"
+logger.add(log_file)
 
 while True:
     prm_dir = input("Specify the directory: ")
@@ -32,7 +37,16 @@ with open("extensions.txt", "r") as extension_file:
                     if entry.is_file():
                         file_extension = os.path.splitext(entry.name)[1].lower()
                         if file_extension == line:
-                            shutil.move(entry.path, directories[current_category])
+                            try:
+                                shutil.move(entry.path, directories[current_category])
+                                logger.info(f"Moved {entry.name} to {current_category}")
+                            except Exception as e:
+                                logger.error(f"Error moving {entry.name}: {e}")
 
-while True:
+    # logging even if nothing is moved
+    logger.info("Scanned directory for files.")
+    if not any(os.scandir(prm_dir)):
+        logger.info("No files were moved.")
+
+    # 10 minute (600 sec) timer
     time.sleep(600)
