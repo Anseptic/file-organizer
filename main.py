@@ -35,4 +35,4 @@ with open("extensions.txt", "r") as extension_file:
                             shutil.move(entry.path, directories[current_category])
 
 while True:
-    time.sleep(120)
+    time.sleep(600)
