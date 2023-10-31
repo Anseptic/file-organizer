@@ -48,5 +48,6 @@ with open("extensions.txt", "r") as extension_file:
     if not any(os.scandir(prm_dir)):
         logger.info("No files were moved.")
 
+while True:
     # 10 minute (600 sec) timer
     time.sleep(600)
